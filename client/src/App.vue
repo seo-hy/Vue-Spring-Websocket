@@ -1,9 +1,15 @@
 <template>
   <div>
-    메시지:
-    <input v-model="message" type="text" @keyup="sendMessage" />
+    <div>
+      message:
+      <input v-model="message" type="text" @keyup="sendMessage" />
+    </div>
+    <button style="margin: 20 0px" @click="infSend">Infinite Send</button>
+    <div></div>
+    <hr />
     <div v-for="(item, idx) in resList" :key="idx">
       <h3>내용: {{ item.message }}</h3>
+      <h3>시간: {{ item.createdAt }}</h3>
     </div>
   </div>
 </template>
@@ -24,6 +30,9 @@ export default {
     this.connect();
   },
   methods: {
+    infSend() {
+      setInterval(this.send, 1000);
+    },
     sendMessage(e) {
       if (e.keyCode === 13 && this.message !== "") {
         this.send();
@@ -68,11 +77,5 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
